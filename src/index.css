@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* Force dark mode to respond ONLY to the .dark class on the root element */
+@variant dark (&:where(.dark, .dark *));

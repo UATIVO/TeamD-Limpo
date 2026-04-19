@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "User": {
+      "title": "Usuário",
+      "description": "Perfil do usuário (aluno ou treinador)",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "student"] },
+        "points": { "type": "number", "description": "Pontuação para o ranking" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "name", "email", "role"]
+    },
+    "Exercise": {
+      "title": "Exercício",
+      "description": "Base de exercícios do sistema",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "muscleGroup": { "type": "string" },
+        "gifUrl": { "type": "string" }
+      },
+      "required": ["name", "muscleGroup", "gifUrl"]
+    },
+    "Workout": {
+      "title": "Treino",
+      "description": "Lista de exercícios atribuída a um aluno",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "trainerId": { "type": "string" },
+        "name": { "type": "string" },
+        "exercises": { 
+          "type": "array"
+        },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["studentId", "trainerId", "exercises"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Coleção de usuários do sistema"
+    },
+    "/exercises/{exerciseId}": {
+      "schema": "Exercise",
+      "description": "Biblioteca global de exercícios"
+    },
+    "/workouts/{workoutId}": {
+      "schema": "Workout",
+      "description": "Treinos personalizados dos alunos"
+    }
+  }
+}
